@@ -1,0 +1,11 @@
+FROM alpine:3.17
+
+RUN apk update
+RUN apk add mariadb
+
+EXPOSE 3306
+
+LABEL version="1.0"
+LABEL description="MariaDB Server"
+
+CMD ["mysqld"]

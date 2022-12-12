@@ -1,0 +1,14 @@
+FROM alpine:3.17
+
+RUN apk update
+RUN apk add php php-mysql php-fpm wget -f
+RUN mkdir -p /usr/share/webapps/
+RUN mkdir -p /var/www/localhost/htdocs/wordpress
+WORKDIR /usr/share/webapps/
+RUN	wget http://wordpress.org/latest.tar.gz
+RUN	tar -xzvf latest.tar.gz 
+RUN	rm latest.tar.gz
+RUN	ln -s /usr/share/webapps/wordpress/ /var/www/localhost/htdocs/wordpress
+EXPOSE 9000
+
+
