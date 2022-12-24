@@ -1,11 +1,16 @@
-FROM alpine:3.17
+FROM debian:buster
 
-RUN apk update
-RUN apk add mariadb
+RUN apt-get update -y \
+	&& apt-get upgrade \
+    && apt-get install mariadb-server -y
+COPY /tools/my.cnf 	/etc/mysql/my.cnf
+COPY /tools/bootstrap.sh /usr/local/bin/bootstrap.sh
+COPY /tools/create_mariadb_admin_user.sh /usr/local/bin/create_mariadb_admin_user.sh
 
-EXPOSE 3306
+RUN chmod 0444 /etc/mysql/my.cnf
 
-LABEL version="1.0"
-LABEL description="MariaDB Server"
+VOLUME  ["/var/lib/mysql"]
 
-CMD ["mysqld"]
+RUN chmod +x /usr/local/bin/*
+
+CMD ["/usr/local/bin/bootstrap.sh"]
