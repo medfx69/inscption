@@ -18,13 +18,12 @@ WORKDIR /usr/share/webapps/
 RUN wget https://wordpress.org/latest.tar.gz \
     && tar -xvzf latest.tar.gz \
     && mv wordpress /var/www/html/mait-aad.42.fr \
-	&& chown -R www-data:www-data /var/www/html/mait-aad.42.fr/ \
-	&& chmod -R 755 /var/www/html/mait-aad.42.fr/\
+	&& chown -R www-data:www-data /var/www/html/mait-aad.42.fr/ 
+RUN chmod -R 755 /var/www/html/mait-aad.42.fr/\
 	&& echo "<?php phpinfo(); ?>" >> /var/www/html/mait-aad.42.fr/index.php \
 	&& mkdir /run/php/ \
 	&& touch /run/php/php8.1-fpm.pid \
-	&& useradd ${MYSQL_ADMIN_USER} \ 
-	&& usermod -aG ${MYSQL_ADMIN_USER} ${MYSQL_ADMIN_USER}
+	&& usermod -aG "www-data" "www-data"
 
 
-CMD ["php-fpm8.1", "-F", "-R"]
+CMD ["php-fpm8.1", "-FR"]

@@ -10,7 +10,7 @@ services:
     ports:
       - 3306:3306
     volumes: 
-      - /home/mait-aad/data/db:/var/lib/mysql/
+      - ./data/db:/var/lib/mysql/
     networks:
       - inception
   nginx:
@@ -21,8 +21,8 @@ services:
     restart: unless-stopped
     env_file: .env
     volumes:
-      - /home/mait-aad/data/wordpress/:/usr/share/nginx/html
-      - /home/mait-aad/data/wordpress/:/var/www/html/
+      - ./data/wordpress/:/usr/share/nginx/html
+      - ./data/wordpress/:/var/www/html/
     networks:
       - inception
   wordpress:
@@ -36,7 +36,7 @@ services:
     ports:
       - 9000:9000
     volumes:
-      - /home/mait-aad/data/wordpress/:/var/www/html/
+      - ./data/wordpress/:/var/www/html/
     networks:
       - inception
 
