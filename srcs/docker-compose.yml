@@ -2,18 +2,6 @@ version: '3'
 
 
 services:
-  mariadb:
-    image: mariadb
-    build:
-      context: requirements/mariadb
-    restart: unless-stopped
-    env_file: .env
-    ports:
-      - 3306:3306
-    volumes: 
-      - db:/var/lib/mysql/
-    networks:
-      - inception
   nginx:
     container_name: nginx
     build: requirements/nginx/
@@ -32,8 +20,6 @@ services:
     container_name: wordpress
     build:
       context: requirements/wordpress/
-    depends_on: 
-      - mariadb
     restart: unless-stopped
     env_file: .env
     ports:
@@ -48,13 +34,7 @@ volumes:
     driver: local
     driver_opts:
       type : none
-      device: ../data/wordpress/
-      o: bind
-  db:
-    driver: local
-    driver_opts:
-      type : none
-      device: ../data/db/
+      device: ./data/wordpress/
       o: bind
 networks:
   inception :

@@ -6,11 +6,7 @@ RUN apt-get update -y \
 COPY /tools/my.cnf 	/etc/mysql/my.cnf
 COPY /tools/bootstrap.sh /usr/local/bin/bootstrap.sh
 COPY /tools/create_mariadb_admin_user.sh /usr/local/bin/create_mariadb_admin_user.sh
-
 RUN chmod 0444 /etc/mysql/my.cnf
-
-VOLUME  ["/var/lib/mysql"]
-
 RUN chmod +x /usr/local/bin/*
 
 CMD ["/usr/local/bin/bootstrap.sh"]
