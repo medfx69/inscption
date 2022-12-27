@@ -2,18 +2,29 @@ version: '3'
 
 
 services:
+  mariadb:
+    container_name: mariadb
+    build: requirements/mariadb/
+    ports:
+    - 3306:3306
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/mysql/
+    networks:
+      - inception
   nginx:
     container_name: nginx
     build: requirements/nginx/
     depends_on: 
       - wordpress
     ports:
-      - 80:80
+      - 443:443
     restart: unless-stopped
     env_file: .env
     volumes:
-      - wordpress:/usr/share/nginx/html
-      - wordpress:/var/www/html/
+      - wordpress:/usr/share/nginx/mait-aad.42.fr
+      - wordpress:/var/www/mait-aad.42.fr/
     networks:
       - inception
   wordpress:
@@ -25,17 +36,23 @@ services:
     ports:
       - 9000:9000
     volumes:
-      - wordpress:/var/www/html/
+      - wordpress:/var/www/mait-aad.42.fr/
     networks:
       - inception
 
 volumes:
   wordpress:
+    driver: 'local'
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '$PWD/data/wordpress'
+  db:
     driver: local
     driver_opts:
-      type : none
-      device: ./data/wordpress/
-      o: bind
+      type: 'none'
+      o: 'bind'
+      device: '$PWD/data/db'
 networks:
   inception :
     driver: bridge

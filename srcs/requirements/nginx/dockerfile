@@ -2,8 +2,16 @@ FROM debian:buster
 
 RUN apt-get update -y \ 
 	&& apt-get upgrade -y \ 
-	&& apt-get install -y nginx 
+	&& apt-get install -y nginx openssl
 COPY tools/default /etc/nginx/sites-available/default
-RUN mkdir -p /var/www/html/\
-	&& chown -R www-data:www-data /var/www/html/
+RUN mkdir -p /var/www/mait-aad.42.fr/\
+	&& chown -R www-data:www-data /var/www/mait-aad.42.fr/
+RUN mkdir -p /etc/nginx/ssl
+
+RUN openssl req -x509 \
+            -sha256 -days 356 \
+            -nodes \
+            -newkey rsa:2048 \
+            -subj "/CN=demo.mlopshub.com/C=US/L=San Fransisco" \
+            -keyout /etc/nginx/ssl/private.key -out /etc/nginx/ssl/bundle.crt 
 CMD ["nginx", "-g" ,"daemon off;"]

@@ -3,10 +3,10 @@ FROM debian:buster
 RUN apt-get update -y \
 	&& apt-get upgrade \
     && apt-get install mariadb-server -y
-COPY /tools/my.cnf 	/etc/mysql/my.cnf
-COPY /tools/bootstrap.sh /usr/local/bin/bootstrap.sh
-COPY /tools/create_mariadb_admin_user.sh /usr/local/bin/create_mariadb_admin_user.sh
-RUN chmod 0444 /etc/mysql/my.cnf
-RUN chmod +x /usr/local/bin/*
 
-CMD ["/usr/local/bin/bootstrap.sh"]
+COPY /tools/create_mariadb_admin_user.sql /var/www/create_mariadb_admin_user.sql
+RUN chmod 0444 /etc/mysql/my.cnf
+RUN service mysql start \
+	&& mysql < /var/www/create_mariadb_admin_user.sql \
+	&& rm -f /var/www/create_mariadb_admin_user.sql;
+CMD ["mysqld"]
