@@ -6,7 +6,12 @@ services:
     ports:
     - 3306:3306
     env_file:
-      - .env
+      - '.env'
+    environment:
+      - MYSQL_DATABASE
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - DB_HOST
     volumes:
       - db:/var/lib/mysql/
     networks:
@@ -20,7 +25,7 @@ services:
       - 443:443
     restart: unless-stopped
     env_file: 
-      - .env
+      - '.env'
     volumes:
       - wordpress:/usr/share/nginx/mait-aad.42.fr
       - wordpress:/var/www/mait-aad.42.fr/
@@ -34,7 +39,7 @@ services:
       context: requirements/wordpress/
     restart: unless-stopped
     env_file: 
-      - .env
+      - '.env'
     ports:
       - 9000:9000
     volumes:
@@ -48,13 +53,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '$PWD/data/wordpress'
+      device: '/home/mait-aad/data/wordpress'
   db:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '$PWD/data/db'
+      device: '/home/mait-aad/data/db'
 networks:
   inception:
     driver: bridge
