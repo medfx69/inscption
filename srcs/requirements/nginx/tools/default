@@ -40,7 +40,7 @@ server {
         #
         # include snippets/snakeoil.conf;
 
-        root /var/www/mait-aad.42.fr;
+        root /var/www/mait-aad.42.fr/wordpress/public_html;
 
         # Add index.php to the list if you are using PHP
         index index.php index.html index.htm index.nginx-debian.html;

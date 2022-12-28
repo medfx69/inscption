@@ -29,6 +29,8 @@ services:
       - inception
   wordpress:
     container_name: wordpress
+    depends_on:
+      - mariadb
     build:
       context: requirements/wordpress/
     restart: unless-stopped
