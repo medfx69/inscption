@@ -5,10 +5,10 @@ up:
 	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml up -d
 build_and_up: 
 	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml up --build -d
-down:
-	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml down -v
 clean:
 	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml down --rmi all
+down:
+	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml down -v
 stop:
 	docker-compose -f kk/docker-compose.yml stop
 remove: stop
