@@ -1,6 +1,4 @@
 version: '3'
-
-
 services:
   mariadb:
     container_name: mariadb
@@ -21,7 +19,8 @@ services:
     ports:
       - 443:443
     restart: unless-stopped
-    env_file: .env
+    env_file: 
+      - .env
     volumes:
       - wordpress:/usr/share/nginx/mait-aad.42.fr
       - wordpress:/var/www/mait-aad.42.fr/
@@ -34,7 +33,8 @@ services:
     build:
       context: requirements/wordpress/
     restart: unless-stopped
-    env_file: .env
+    env_file: 
+      - .env
     ports:
       - 9000:9000
     volumes:
@@ -56,5 +56,5 @@ volumes:
       o: 'bind'
       device: '$PWD/data/db'
 networks:
-  inception :
+  inception:
     driver: bridge
