@@ -10,8 +10,8 @@ clean:
 down:
 	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml down -v
 stop:
-	docker-compose -f kk/docker-compose.yml stop
+	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml stop
 remove: stop
-	docker-compose -f kk/docker-compose.yml rm -f
+	docker-compose -f $(DOCKER_CONTEXT)/docker-compose.yml rm -f
 	docker rmi $$(docker images -f "dangling=true" -q)
 .PHONY: build run clear stop remove
