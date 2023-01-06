@@ -27,6 +27,7 @@ define('DB_PASSWORD', 'Mmedddaaa');
 define('DB_HOST', 'mariadb');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', '');
+
 /**#@+
  * Authentication unique keys and salts.
  *

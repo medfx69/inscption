@@ -7,11 +7,6 @@ services:
     - 3306:3306
     env_file:
       - '.env'
-    environment:
-      - MYSQL_DATABASE
-      - MYSQL_USER
-      - MYSQL_PASSWORD
-      - DB_HOST
     volumes:
       - db:/var/lib/mysql/
     networks:
@@ -27,7 +22,6 @@ services:
     env_file: 
       - '.env'
     volumes:
-      - wordpress:/usr/share/nginx/mait-aad.42.fr
       - wordpress:/var/www/mait-aad.42.fr/
     networks:
       - inception
